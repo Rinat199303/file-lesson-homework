@@ -23,9 +23,9 @@ public class Main {
         files.add(new File("C:/Plan/RoadToMexico/src/main/Utils.java"));
 //        Используем метод для создания дирректорий и файлов
         createFiles(files);
-        GameProgress slot1 = new GameProgress(95, 10, 14, 500.64);
-        GameProgress slot2 = new GameProgress(60, 8, 9, 307.27);
-        GameProgress slot3 = new GameProgress(30, 3, 5, 150.25);
+        GameProgress slot1 = new GameProgress(95, 10, 14, 500.64, "Mexico city");
+        GameProgress slot2 = new GameProgress(60, 8, 9, 307.27, "California");
+        GameProgress slot3 = new GameProgress(30, 3, 5, 150.25, "Madrid");
         String s1 = "C:/Plan/RoadToMexico/saves/slot1.dat";
         String s2 = "C:/Plan/RoadToMexico/saves/slot2.dat";
         String s3 = "C:/Plan/RoadToMexico/saves/slot3.dat";
@@ -51,38 +51,38 @@ public class Main {
         //Реализуем метод openProgress в качестве переменной берем
         //Переменную типа стринг путь к файлу
         System.out.println(openProgress("C:/Plan/RoadToMexico/saves/slot1.dat"));
-        
+
     }
 
     private static GameProgress openProgress(String s1) {
         GameProgress slot = null;
         //Создаем выходной поток для записи в файл
         try (FileInputStream fis = new FileInputStream(s1);
-             ObjectInputStream ois = new ObjectInputStream(fis)){
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
             //десереализуем объект, скастим его в класс
 
-            slot =  (GameProgress) ois.readObject();
-        }catch (Exception e){
+            slot = (GameProgress) ois.readObject();
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return slot;
     }
 
     private static void openZip(String zipSave) {
-        try(ZipInputStream zInS = new ZipInputStream(new FileInputStream(zipSave))){
+        try (ZipInputStream zInS = new ZipInputStream(new FileInputStream(zipSave))) {
             ZipEntry entry;
             String name;
-            while ((entry = zInS.getNextEntry()) != null){
+            while ((entry = zInS.getNextEntry()) != null) {
                 name = entry.getName();// получаем название файла
                 FileOutputStream fOutPut = new FileOutputStream(name);
-                for (int c = zInS.read(); c != -1; c = zInS.read()){
+                for (int c = zInS.read(); c != -1; c = zInS.read()) {
                     fOutPut.write(c);
                 }
                 fOutPut.flush();
                 zInS.closeEntry();
                 fOutPut.close();
             }
-        }catch (IOException e){
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -91,10 +91,10 @@ public class Main {
         /**
          * Создаем метод и записывае архив
          */
-        try (ZipOutputStream zOutPut = new ZipOutputStream(new FileOutputStream(zipSave))){
+        try (ZipOutputStream zOutPut = new ZipOutputStream(new FileOutputStream(zipSave))) {
             for (int i = 0; i < listSlots.size(); i++) {
                 FileInputStream fis = new FileInputStream(listSlots.get(i));
-                        ZipEntry entry = new ZipEntry(listSlots.get(i));
+                ZipEntry entry = new ZipEntry(listSlots.get(i));
                 zOutPut.putNextEntry(entry);
                 //считываем файл по байтам
                 byte[] buffer = new byte[fis.available()];
@@ -103,10 +103,10 @@ public class Main {
                 fis.close();
                 zOutPut.closeEntry();
             }
-        } catch(IOException e){
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        for (int i = 0; i < listSlots.size(); i++){
+        for (int i = 0; i < listSlots.size(); i++) {
             File slot = new File(listSlots.get(i));
             slot.delete();
         }

@@ -12,12 +12,12 @@ public class GameProgress implements Serializable {
 
     private String city;
 
-    public GameProgress(int health, int weapons, int lvl, double distance) {
+    public GameProgress(int health, int weapons, int lvl, double distance, String city) {
         this.health = health;
         this.weapons = weapons;
         this.lvl = lvl;
         this.distance = distance;
-//        this.city = city;
+        this.city = city;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class GameProgress implements Serializable {
                 ", weapons=" + weapons +
                 ", lvl=" + lvl +
                 ", distance=" + distance +
-//                ", city=" + city +
+                ", city=" + city +
                 '}';
     }
 }
