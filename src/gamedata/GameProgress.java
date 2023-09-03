@@ -22,7 +22,7 @@ public class GameProgress implements Serializable {
 
     @Override
     public String toString() {
-        return "GameProgress{" +
+        return "{" +
                 "health=" + health +
                 ", weapons=" + weapons +
                 ", lvl=" + lvl +
